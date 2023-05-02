@@ -12,5 +12,36 @@
 </head>
     <body>
     <!--Add review form here -->
+    {% for dealer in dealer %}
+    <h1>Add a Review for {{dealer.full_name}}</h1>
+    <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="Name">Name</label>
+          <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="content">Tell Us About Your Experience</label>
+          <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="purchasecheck">Has Purchased a Car from {{dealer.full_name}}</label>
+          <input type="checkbox" id="purchasecheck" name="purchasecheck" required>
+        </div>
+        <div class="form-group">
+          <label for="car">Select Your Car (model-make): </label>
+          <select class="form-select" id="car" name="car">
+            {% for car in cars %}
+                <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group" >
+          <label for="purchasedate">Select Your Purchase Date</label>
+          <input class="form-control" type="date" id="purchasedate" name="purchasedate">
+        </div>
+        <button class="btn btn-primary" type="submit">Add Review</button>
+      </form>
+      {% endfor %}
     </body>
 </html>
