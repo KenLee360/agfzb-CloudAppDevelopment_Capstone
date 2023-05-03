@@ -127,7 +127,6 @@ def add_review(request, dealer_id):
             review["time"] = datetime.utcnow().isoformat()
             review["name"] = username
             review["dealership"] = dealer_id
-            review["id"] = dealer_id
             review["review"] = request.POST["content"]
             if "purchasecheck" in request.POST:
                 review["purchase"] = True
